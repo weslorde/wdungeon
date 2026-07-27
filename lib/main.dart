@@ -1,0 +1,197 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wdungeon/tdherois_page.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+///
+/// ROTAS
+///
+final GoRouter router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    ShellRoute(
+      builder: (context, state, child) => AppLayout(child: child),
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const TdHerois(),
+        ),
+        GoRoute(
+          path: '/devices',
+          builder: (context, state) => const DevicesPage(),
+        ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const SettingsPage(),
+        ),
+      ],
+    ),
+  ],
+);
+
+///
+/// APP
+///
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'Meu Projeto',
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
+      ),
+    );
+  }
+}
+
+///
+/// LAYOUT PADRÃO
+///
+class AppLayout extends StatelessWidget {
+  final Widget child;
+
+  const AppLayout({
+    super.key,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const AppTopBar(),
+      body: child,
+      bottomNavigationBar: const AppBottomBar(),
+    );
+  }
+}
+
+///
+/// TOPO
+///
+class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
+  const AppTopBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      title: const Text(
+        "Meu Projeto",
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.more_vert),
+        )
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+///
+/// BARRA INFERIOR
+///
+class AppBottomBar extends StatelessWidget {
+  const AppBottomBar({super.key});
+
+  int currentIndex(BuildContext context) {
+    final path = GoRouterState.of(context).uri.path;
+
+    switch (path) {
+      case '/':
+        return 0;
+      case '/devices':
+        return 1;
+      case '/settings':
+        return 2;
+      default:
+        return 0;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return NavigationBar(
+      selectedIndex: currentIndex(context),
+
+      onDestinationSelected: (index) {
+        switch (index) {
+          case 0:
+            context.go('/');
+            break;
+
+          case 1:
+            context.go('/devices');
+            break;
+
+          case 2:
+            context.go('/settings');
+            break;
+        }
+      },
+
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: "Home",
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.memory_outlined),
+          selectedIcon: Icon(Icons.memory),
+          label: "Dispositivos",
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.settings_outlined),
+          selectedIcon: Icon(Icons.settings),
+          label: "Config",
+        ),
+      ],
+    );
+  }
+}
+
+
+class DevicesPage extends StatelessWidget {
+  const DevicesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text(
+        "DISPOSITIVOS",
+        style: TextStyle(fontSize: 30),
+      ),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text(
+        "CONFIGURAÇÕES",
+        style: TextStyle(fontSize: 30),
+      ),
+    );
+  }
+}
