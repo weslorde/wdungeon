@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Meu Projeto',
+      title: 'WDungeon',
       debugShowCheckedModeBanner: false,
       routerConfig: router,
       theme: ThemeData(
@@ -66,7 +66,7 @@ class AppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppTopBar(),
+      //appBar: const AppTopBar(),
       body: child,
       bottomNavigationBar: const AppBottomBar(),
     );
@@ -82,6 +82,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      
       centerTitle: true,
       elevation: 0,
       scrolledUnderElevation: 0,
@@ -148,9 +149,9 @@ class AppBottomBar extends StatelessWidget {
 
       destinations: const [
         NavigationDestination(
-          icon: Icon(Icons.home_outlined),
-          selectedIcon: Icon(Icons.home),
-          label: "Home",
+          icon: Icon(Icons.person),
+          selectedIcon: Icon(Icons.person),
+          label: "Todos",
         ),
         NavigationDestination(
           icon: Icon(Icons.memory_outlined),
