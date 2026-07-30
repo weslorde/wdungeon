@@ -37,6 +37,8 @@ dependencies:
 
   go_router: ^16.0.0
   image: ^4.2.0
+  flutter_easy_search_bar: ^0.0.1
+
 
 dev_dependencies:
   flutter_test:

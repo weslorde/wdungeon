@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wdungeon/pesquisa_page.dart';
 import 'package:wdungeon/tdherois_page.dart';
 
 void main() {
@@ -20,8 +21,8 @@ final GoRouter router = GoRouter(
           builder: (context, state) => const TdHerois(),
         ),
         GoRoute(
-          path: '/devices',
-          builder: (context, state) => const DevicesPage(),
+          path: '/pesquisa',
+          builder: (context, state) => const PesquisaHerois(),
         ),
         GoRoute(
           path: '/settings',
@@ -117,7 +118,7 @@ class AppBottomBar extends StatelessWidget {
     switch (path) {
       case '/':
         return 0;
-      case '/devices':
+      case '/pesquisa':
         return 1;
       case '/settings':
         return 2;
@@ -138,7 +139,7 @@ class AppBottomBar extends StatelessWidget {
             break;
 
           case 1:
-            context.go('/devices');
+            context.go('/pesquisa');
             break;
 
           case 2:
