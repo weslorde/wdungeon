@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wdungeon/pesquisa_page.dart';
+import 'package:wdungeon/sorteio_page.dart';
 import 'package:wdungeon/tdherois_page.dart';
 
 void main() {
@@ -25,8 +26,8 @@ final GoRouter router = GoRouter(
           builder: (context, state) => const PesquisaHerois(),
         ),
         GoRoute(
-          path: '/settings',
-          builder: (context, state) => const SettingsPage(),
+          path: '/sorteio',
+          builder: (context, state) => const SorteioHeroi(),
         ),
       ],
     ),
@@ -120,7 +121,7 @@ class AppBottomBar extends StatelessWidget {
         return 0;
       case '/pesquisa':
         return 1;
-      case '/settings':
+      case '/sorteio':
         return 2;
       default:
         return 0;
@@ -143,7 +144,7 @@ class AppBottomBar extends StatelessWidget {
             break;
 
           case 2:
-            context.go('/settings');
+            context.go('/sorteio');
             break;
         }
       },
@@ -155,14 +156,14 @@ class AppBottomBar extends StatelessWidget {
           label: "Todos",
         ),
         NavigationDestination(
-          icon: Icon(Icons.memory_outlined),
-          selectedIcon: Icon(Icons.memory),
-          label: "Dispositivos",
+          icon: Icon(Icons.search),
+          selectedIcon: Icon(Icons.search),
+          label: "Pesquisa",
         ),
         NavigationDestination(
-          icon: Icon(Icons.settings_outlined),
-          selectedIcon: Icon(Icons.settings),
-          label: "Config",
+          icon: Icon(Icons.casino),
+          selectedIcon: Icon(Icons.casino),
+          label: "Random",
         ),
       ],
     );
@@ -170,30 +171,3 @@ class AppBottomBar extends StatelessWidget {
 }
 
 
-class DevicesPage extends StatelessWidget {
-  const DevicesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        "DISPOSITIVOS",
-        style: TextStyle(fontSize: 30),
-      ),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        "CONFIGURAÇÕES",
-        style: TextStyle(fontSize: 30),
-      ),
-    );
-  }
-}
