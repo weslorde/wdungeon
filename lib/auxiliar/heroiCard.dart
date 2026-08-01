@@ -62,7 +62,7 @@ class HeroiCard extends StatelessWidget {
                           color: const Color.fromARGB(110, 13, 119, 205),
                           child: Center(
                             child: Image.asset(
-                              'images/icons/${heroi.skillVerde}.png',
+                              'images/icons/azul/${heroi.nome}.png',
                               fit: BoxFit.cover,
                             ),
                           ),

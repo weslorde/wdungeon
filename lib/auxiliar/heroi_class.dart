@@ -6,6 +6,7 @@ class Heroi {
   final List<String> classe;
   final String caixa;
   final String dificuldade;
+  final String cartaextra;
 
   const Heroi({
     required this.indice,
@@ -15,6 +16,7 @@ class Heroi {
     required this.classe,
     required this.caixa,
     required this.dificuldade,
+    required this.cartaextra,
   });
 }
 
@@ -25,8 +27,9 @@ const List<Heroi> herois = [
     skillVermelha: 'InstAgil',
     skillVerde: 'CuraGrupo',
     classe: ['Suporte'],
-    caixa: 'torre',
+    caixa: 'gelo',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 1,
@@ -36,6 +39,7 @@ const List<Heroi> herois = [
     classe: ['Cura'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 2,
@@ -45,6 +49,7 @@ const List<Heroi> herois = [
     classe: ['Suporte'],
     caixa: 'fogo',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 3,
@@ -54,6 +59,7 @@ const List<Heroi> herois = [
     classe: ['Dinheiro'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 4,
@@ -63,6 +69,7 @@ const List<Heroi> herois = [
     classe: ['Cura'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 5,
@@ -72,6 +79,7 @@ const List<Heroi> herois = [
     classe: ['Dano'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 6,
@@ -79,8 +87,9 @@ const List<Heroi> herois = [
     skillVermelha: 'DanoPerfu',
     skillVerde: 'Furto',
     classe: ['Dano', 'Dinheiro'],
-    caixa: 'padrão',
+    caixa: 'gelo',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 7,
@@ -90,6 +99,7 @@ const List<Heroi> herois = [
     classe: ['Errar', 'Dano'],
     caixa: 'fantasma',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 8,
@@ -99,6 +109,7 @@ const List<Heroi> herois = [
     classe: ['Dano', 'Cura'],
     caixa: 'floresta',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 9,
@@ -106,8 +117,9 @@ const List<Heroi> herois = [
     skillVermelha: 'AutoCura',
     skillVerde: 'ijFera',
     classe: ['Dano'],
-    caixa: 'torre',
+    caixa: 'gelo',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 10,
@@ -117,6 +129,7 @@ const List<Heroi> herois = [
     classe: ['Cura', 'Suporte'],
     caixa: 'fogo',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 11,
@@ -126,6 +139,7 @@ const List<Heroi> herois = [
     classe: ['Dano'],
     caixa: 'fantasma',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 12,
@@ -135,6 +149,7 @@ const List<Heroi> herois = [
     classe: ['Dinheiro', 'Dano'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 13,
@@ -142,8 +157,9 @@ const List<Heroi> herois = [
     skillVermelha: 'DanoFocado',
     skillVerde: 'Rebola',
     classe: ['Cura', 'Errar'],
-    caixa: 'torre',
+    caixa: 'gelo',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 14,
@@ -153,6 +169,7 @@ const List<Heroi> herois = [
     classe: ['Errar', 'Dano'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 15,
@@ -162,6 +179,7 @@ const List<Heroi> herois = [
     classe: ['Dano'],
     caixa: 'fogo',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 16,
@@ -171,6 +189,7 @@ const List<Heroi> herois = [
     classe: ['Dano'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 17,
@@ -180,6 +199,7 @@ const List<Heroi> herois = [
     classe: ['Errar', 'Suporte', 'Escudo'],
     caixa: 'floresta',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 18,
@@ -189,6 +209,7 @@ const List<Heroi> herois = [
     classe: ['Dinheiro', 'Dano'],
     caixa: 'floresta',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 19,
@@ -198,6 +219,7 @@ const List<Heroi> herois = [
     classe: ['Cura', 'Dinheiro'],
     caixa: 'fantasma',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 20,
@@ -207,6 +229,7 @@ const List<Heroi> herois = [
     classe: ['Cura'],
     caixa: 'fantasma',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 21,
@@ -216,6 +239,7 @@ const List<Heroi> herois = [
     classe: ['Dano'],
     caixa: 'floresta',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
   Heroi(
     indice: 22,
@@ -225,5 +249,214 @@ const List<Heroi> herois = [
     classe: ['Dano', 'Cura'],
     caixa: 'padrão',
     dificuldade: 'facil',
+    cartaextra: 'nao',
   ),
+  Heroi(
+    indice: 23,
+    nome: 'Torm',
+    skillVermelha: 'DanoFocado',
+    skillVerde: 'DanoPerfu',
+    classe: ['Dano'],
+    caixa: 'fogo',
+    dificuldade: 'facil',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 24,
+    nome: 'Aang',
+    skillVermelha: 'CuraGrupo',
+    skillVerde: 'Voodo',
+    classe: ['Suporte', 'Cura'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'Elementos',
+  ),
+  Heroi(
+    indice: 25,
+    nome: 'Alton',
+    skillVermelha: 'Repete',
+    skillVerde: 'InstAgil',
+    classe: ['Dano', 'Errar'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 26,
+    nome: 'Angela',
+    skillVermelha: 'CuraGrupo',
+    skillVerde: 'InstAgil',
+    classe: ['Dano ', 'Cura'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 27,
+    nome: 'Betty',
+    skillVermelha: 'Rebola',
+    skillVerde: 'Furto',
+    classe: ['Dano ', 'Furto'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 28,
+    nome: 'Contractus',
+    skillVermelha: 'NuvemCura',
+    skillVerde: 'DanoPerfu',
+    classe: ['Dano', 'Suporte'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 29,
+    nome: 'Jack',
+    skillVermelha: 'Larapio',
+    skillVerde: 'Furto',
+    classe: ['Dano ', 'Furto'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 30,
+    nome: 'Jorge',
+    skillVermelha: 'Rebola',
+    skillVerde: 'NuvemCura',
+    classe: ['Suporte', 'Cura'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 31,
+    nome: 'Lã',
+    skillVermelha: 'Furto',
+    skillVerde: 'InstSobrev',
+    classe: ['Dano', 'Furto'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 32,
+    nome: 'Morgana',
+    skillVermelha: 'CuraGrupo',
+    skillVerde: 'InstSobrev',
+    classe: ['Cura', 'Suporte'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 33,
+    nome: 'Polar',
+    skillVermelha: 'DanoFocado',
+    skillVerde: 'ijHumano',
+    classe: ['Dano'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 34,
+    nome: 'Reri',
+    skillVermelha: 'Voodo',
+    skillVerde: 'ijMorto',
+    classe: ['Suporte', 'Dano', 'Errar'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 35,
+    nome: 'Ruth',
+    skillVermelha: 'Larapio',
+    skillVerde: 'AutoCura',
+    classe: ['Suporte', 'Dano'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 36,
+    nome: 'Show',
+    skillVermelha: 'Furto',
+    skillVerde: 'AutoCura',
+    classe: ['Furto', 'Dano'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 37,
+    nome: 'Truta',
+    skillVermelha: 'ijHumano',
+    skillVerde: 'InstAgil',
+    classe: ['Dano'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 38,
+    nome: 'Tuco',
+    skillVermelha: 'DanoPerfu',
+    skillVerde: 'AutoCura',
+    classe: ['Dano'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 39,
+    nome: 'Uni',
+    skillVermelha: 'InstSobrev',
+    skillVerde: 'InstAgil',
+    classe: ['Dano', 'Errar'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 40,
+    nome: 'Willy',
+    skillVermelha: 'InstSobrev',
+    skillVerde: 'Repete',
+    classe: ['Suporte', 'Errar'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'nao',
+  ),
+  Heroi(
+    indice: 41,
+    nome: 'Zhang',
+    skillVermelha: 'Rebola',
+    skillVerde: 'NuvemCura',
+    classe: ['Suporte', 'Cura'],
+    caixa: 'W box',
+    dificuldade: 'medio',
+    cartaextra: 'Mapa Estelar',
+  ),
+];
+
+class HeroiAux extends Heroi {
+  const HeroiAux({
+    super.skillVermelha = '',
+    super.skillVerde = '',
+    super.classe = const [],
+    super.caixa = '',
+    super.dificuldade = '',
+    required super.indice,
+    required super.nome,
+    required super.cartaextra,
+  });
+}
+
+const List<HeroiAux> heroisAux = [
+  HeroiAux(indice: 0, nome: 'Elementos', cartaextra: 'Aang'),
+  HeroiAux(indice: 1, nome: 'Elementos', cartaextra: 'Zhang'),
 ];
