@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wdungeon/auxiliar/heroi_class.dart';
+import 'package:just_audio/just_audio.dart';
+import 'dart:io';
 
 class DetalheHeroi extends StatefulWidget {
   final Heroi heroi;
@@ -72,7 +75,9 @@ class _PaginaHeroi extends StatefulWidget {
   final Heroi heroi;
   final ValueChanged<bool> onMudarArrasto;
 
-  const _PaginaHeroi({required this.heroi, required this.onMudarArrasto});
+  final AudioPlayer _player = AudioPlayer();
+
+  _PaginaHeroi({required this.heroi, required this.onMudarArrasto});
 
   @override
   State<_PaginaHeroi> createState() => _PaginaHeroiState();
@@ -81,6 +86,7 @@ class _PaginaHeroi extends StatefulWidget {
 class _PaginaHeroiState extends State<_PaginaHeroi> {
   int _selecionado = 0;
   bool _mostrandoAux = false;
+  final AudioPlayer _player = AudioPlayer();
 
   void _clicouEsquerda() => setState(() => _selecionado = 1);
   void _clicouDireita() => setState(() => _selecionado = 2);
@@ -93,11 +99,33 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
     widget.onMudarArrasto(!_mostrandoAux);
   }
 
+  Future<void> _tocarAudio() async {
+    final nome = (_mostrandoAux && _buscarCartaAuxiliar(widget.heroi) != null)
+        ? _buscarCartaAuxiliar(widget.heroi)!.nome
+        : widget.heroi.nome;
+
+    final asset = 'images/audios/$nome.mp3';
+
+    try {
+      // verifica se o asset existe
+      await rootBundle.load(asset);
+
+      await _player.stop();
+      await _player.setAsset(asset);
+      await _player.play();
+    } catch (_) {
+      // não existe o áudio
+    }
+  }
+
   @override
   void dispose() {
+    _player.dispose();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.onMudarArrasto(true);
     });
+
     super.dispose();
   }
 
@@ -120,6 +148,16 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
               child: Icon(_mostrandoAux ? Icons.person : Icons.swap_horiz),
             ),
           ),
+        Positioned(
+          top: 20,
+          right: 20,
+          child: FloatingActionButton(
+            heroTag: 'audio_${widget.heroi.nome}',
+            mini: true,
+            onPressed: _tocarAudio,
+            child: const Icon(Icons.volume_up),
+          ),
+        ),
       ],
     );
   }

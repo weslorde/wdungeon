@@ -27,7 +27,7 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(
           path: '/sorteio',
-          builder: (context, state) => const SorteioHeroi(),
+          builder: (context, state) => const MenuSorteio(),
         ),
       ],
     ),

@@ -38,6 +38,7 @@ dependencies:
   go_router: ^16.0.0
   image: ^4.2.0
   flutter_easy_search_bar: ^0.0.1
+  just_audio: ^0.10.4
 
 
 dev_dependencies:
@@ -73,6 +74,9 @@ flutter:
       - images/perfil/
       - images/icons/
       - images/icons/azul/
+      - images/tabuleiros/
+      - images/dados/
+      - images/audios/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
