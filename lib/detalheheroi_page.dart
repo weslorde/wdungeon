@@ -13,6 +13,7 @@ class DetalheHeroi extends StatefulWidget {
 class _DetalheHeroiState extends State<DetalheHeroi> {
   late PageController _controller;
   late int _paginaAtual;
+  bool _arrastarLiberado = true;
 
   @override
   void initState() {
@@ -27,6 +28,13 @@ class _DetalheHeroiState extends State<DetalheHeroi> {
     super.dispose();
   }
 
+  void _atualizarArrasto(bool liberado) {
+    if (!mounted) return;
+    setState(() {
+      _arrastarLiberado = liberado;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +42,9 @@ class _DetalheHeroiState extends State<DetalheHeroi> {
       body: PageView.builder(
         controller: _controller,
         itemCount: herois.length,
+        physics: _arrastarLiberado
+            ? const PageScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
         onPageChanged: (index) {
           setState(() {
             _paginaAtual = index;
@@ -41,17 +52,27 @@ class _DetalheHeroiState extends State<DetalheHeroi> {
         },
         itemBuilder: (context, index) {
           final heroi = herois[index];
-          return _PaginaHeroi(heroi: heroi);
+          return _PaginaHeroi(heroi: heroi, onMudarArrasto: _atualizarArrasto);
         },
       ),
     );
   }
 }
 
+// Busca a carta auxiliar correspondente ao herói, se existir
+HeroiAux? _buscarCartaAuxiliar(Heroi heroi) {
+  if (heroi.cartaextra == 'nao') return null;
+  for (final aux in heroisAux) {
+    if (aux.cartaextra == heroi.nome) return aux;
+  }
+  return null;
+}
+
 class _PaginaHeroi extends StatefulWidget {
   final Heroi heroi;
+  final ValueChanged<bool> onMudarArrasto;
 
-  const _PaginaHeroi({required this.heroi});
+  const _PaginaHeroi({required this.heroi, required this.onMudarArrasto});
 
   @override
   State<_PaginaHeroi> createState() => _PaginaHeroiState();
@@ -59,14 +80,51 @@ class _PaginaHeroi extends StatefulWidget {
 
 class _PaginaHeroiState extends State<_PaginaHeroi> {
   int _selecionado = 0;
+  bool _mostrandoAux = false;
 
   void _clicouEsquerda() => setState(() => _selecionado = 1);
   void _clicouDireita() => setState(() => _selecionado = 2);
 
+  void _alternarCarta() {
+    setState(() {
+      _mostrandoAux = !_mostrandoAux;
+      _selecionado = 0;
+    });
+    widget.onMudarArrasto(!_mostrandoAux);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onMudarArrasto(true);
+    });
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final heroi = widget.heroi;
+    final auxCard = _buscarCartaAuxiliar(widget.heroi);
+    final Heroi cartaAtual = (_mostrandoAux && auxCard != null)
+        ? auxCard
+        : widget.heroi;
 
+    return Stack(
+      children: [
+        Positioned.fill(child: _conteudoCarta(cartaAtual)),
+        if (auxCard != null)
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: FloatingActionButton(
+              onPressed: _alternarCarta,
+              child: Icon(_mostrandoAux ? Icons.person : Icons.swap_horiz),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _conteudoCarta(Heroi carta) {
     if (_selecionado == 0) {
       return Column(
         children: [
@@ -75,7 +133,7 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
               child: GestureDetector(
                 onTap: _clicouEsquerda,
                 behavior: HitTestBehavior.opaque,
-                child: Image.asset('images/corteEsquerda/${heroi.nome}.png'),
+                child: Image.asset('images/corteEsquerda/${carta.nome}.png'),
               ),
             ),
           ),
@@ -84,7 +142,7 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
               child: GestureDetector(
                 onTap: _clicouDireita,
                 behavior: HitTestBehavior.opaque,
-                child: Image.asset('images/corteDireita/${heroi.nome}.png'),
+                child: Image.asset('images/corteDireita/${carta.nome}.png'),
               ),
             ),
           ),
@@ -92,8 +150,6 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
       );
     }
 
-    // esquerda: 0.8 se selecionado==1, senão 0.45
-    // direita: 0.45 se selecionado==1, senão 0.8
     final tamanhoEsquerda = _selecionado == 1 ? 0.8 : 0.45;
     final tamanhoDireita = _selecionado == 1 ? 0.45 : 0.8;
 
@@ -103,7 +159,6 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
         if (_selecionado == 1) {
           return Stack(
             children: [
-              // Direita sempre embaixo
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -113,12 +168,11 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
                   onTap: _clicouDireita,
                   behavior: HitTestBehavior.opaque,
                   child: Image.asset(
-                    'images/corteDireita/${heroi.nome}.png',
+                    'images/corteDireita/${carta.nome}.png',
                     fit: BoxFit.fitHeight,
                   ),
                 ),
               ),
-              // Esquerda sempre em cima
               Positioned(
                 top: 0,
                 left: 0,
@@ -128,7 +182,7 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
                   onTap: _clicouEsquerda,
                   behavior: HitTestBehavior.opaque,
                   child: Image.asset(
-                    'images/corteEsquerda/${heroi.nome}.png',
+                    'images/corteEsquerda/${carta.nome}.png',
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -139,7 +193,6 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
         if (_selecionado == 2) {
           return Stack(
             children: [
-              // Esquerda sempre em cima
               Positioned(
                 top: 0,
                 left: 0,
@@ -149,12 +202,11 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
                   onTap: _clicouEsquerda,
                   behavior: HitTestBehavior.opaque,
                   child: Image.asset(
-                    'images/corteEsquerda/${heroi.nome}.png',
+                    'images/corteEsquerda/${carta.nome}.png',
                     fit: BoxFit.fitHeight,
                   ),
                 ),
               ),
-              // Direita sempre embaixo
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -164,7 +216,7 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
                   onTap: _clicouDireita,
                   behavior: HitTestBehavior.opaque,
                   child: Image.asset(
-                    'images/corteDireita/${heroi.nome}.png',
+                    'images/corteDireita/${carta.nome}.png',
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -172,7 +224,7 @@ class _PaginaHeroiState extends State<_PaginaHeroi> {
             ],
           );
         } else {
-          return SizedBox();
+          return const SizedBox();
         }
       },
     );

@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:wdungeon/auxiliar/heroiCard.dart';
 import 'package:wdungeon/auxiliar/heroi_class.dart';
-import 'package:wdungeon/detalheheroi_page.dart';
 
 class TdHerois extends StatelessWidget {
   const TdHerois({super.key});
