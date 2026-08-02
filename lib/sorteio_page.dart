@@ -1,78 +1,47 @@
-import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:wdungeon/auxiliar/heroiCard.dart';
-import 'package:wdungeon/auxiliar/heroi_class.dart';
 
-class SorteioHeroi extends StatefulWidget {
-  const SorteioHeroi({super.key});
+class SorteioSimples extends StatefulWidget {
+  final String titulo;
+  final List<String> imagens;
+
+  const SorteioSimples({
+    super.key,
+    required this.titulo,
+    required this.imagens,
+  });
 
   @override
-  State<SorteioHeroi> createState() => _SorteioHeroiState();
+  State<SorteioSimples> createState() => _SorteioSimplesState();
 }
 
-class _SorteioHeroiState extends State<SorteioHeroi> {
-  Heroi? _heroiSorteado; // null = mostra interrogação
-  bool _sorteando = false;
-  Timer? _timer;
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
+class _SorteioSimplesState extends State<SorteioSimples> {
+  String? _imagemSorteada; // null = mostra interrogação
 
   void _sortear() {
-    if (_sorteando) return; // evita clicar de novo enquanto já está sorteando
-
-    setState(() {
-      _sorteando = true;
-    });
-
     final random = Random();
-    int contagem = 0;
-    const totalTrocas = 20; // quantas trocas até parar
-    int intervaloAtual = 50; // ms entre trocas (começa rápido)
-
-    void proximaTroca() {
-      setState(() {
-        _heroiSorteado = herois[random.nextInt(herois.length)];
-      });
-
-      contagem++;
-
-      if (contagem >= totalTrocas) {
-        // Parou: garante que o último seja realmente aleatório e final
-        setState(() {
-          _sorteando = false;
-        });
-        return;
-      }
-
-      // Desacelera progressivamente conforme se aproxima do final
-      intervaloAtual += 15;
-      _timer = Timer(Duration(milliseconds: intervaloAtual), proximaTroca);
-    }
-
-    proximaTroca();
+    setState(() {
+      _imagemSorteada = widget.imagens[random.nextInt(widget.imagens.length)];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sorteio de Herói')),
+      appBar: AppBar(title: Text(widget.titulo)),
       body: Stack(
         children: [
           Center(
-            child: Container(
-              height: 350,
-              width: 300,
-              child: Card(
-                elevation: 6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: _heroiSorteado == null
+            child: Card(
+              elevation: 6,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Container(
+                height: 300,
+                width: 300,
+                padding: const EdgeInsets.all(16),
+                child: _imagemSorteada == null
                     ? const Center(
                         child: Text(
                           '?',
@@ -82,18 +51,17 @@ class _SorteioHeroiState extends State<SorteioHeroi> {
                           ),
                         ),
                       )
-                    : HeroiCard(heroi: _heroiSorteado!),
+                    : Image.asset(_imagemSorteada!, fit: BoxFit.contain),
               ),
             ),
           ),
-          // Botão flutuante de dado, fixo na parte de baixo
           Positioned(
             bottom: 30,
             left: 0,
             right: 0,
             child: Center(
               child: FloatingActionButton(
-                onPressed: _sorteando ? null : _sortear,
+                onPressed: _sortear,
                 child: const Icon(Icons.casino, size: 32),
               ),
             ),

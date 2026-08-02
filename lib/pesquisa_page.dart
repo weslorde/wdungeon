@@ -20,8 +20,11 @@ class _PesquisaHeroisState extends State<PesquisaHerois> {
   String? _dificuldade;
 
   // Extrai valores únicos de um campo da lista de heróis
-  List<String> _opcoes(Iterable<String> valores) {
-    final unicos = valores.toSet().toList();
+  List<String> _opcoes(
+    Iterable<String> valores, {
+    List<String> ignorar = const ['Fobia', 'InstSuperior', 'CuraErrado', 'Vortice', 'Samata', 'Virya'],
+  }) {
+    final unicos = valores.where((v) => !ignorar.contains(v)).toSet().toList();
     unicos.sort();
     return unicos;
   }
@@ -41,7 +44,9 @@ class _PesquisaHeroisState extends State<PesquisaHerois> {
     final opcoesDificuldade = _opcoes(herois.map((h) => h.dificuldade));
 
     final resultado = herois.where((h) {
-      final buscaOk = h.nome.toLowerCase().contains(_busca.toLowerCase());
+      final buscaOk = h.nomeCompleto.toLowerCase().contains(
+        _busca.toLowerCase(),
+      );
       final skillVermelhaOk =
           _skillVermelha == null || h.skillVermelha == _skillVermelha;
       final skillVerdeOk = _skillVerde == null || h.skillVerde == _skillVerde;
@@ -59,9 +64,7 @@ class _PesquisaHeroisState extends State<PesquisaHerois> {
     }).toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pesquisar Heróis'),
-      ),
+      appBar: AppBar(title: const Text('Pesquisar Heróis')),
       body: Column(
         children: [
           // ==== CAIXA DE PESQUISA (sempre aberta) ====
@@ -83,7 +86,9 @@ class _PesquisaHeroisState extends State<PesquisaHerois> {
                         },
                       ),
                 filled: true,
-                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                fillColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none,
@@ -167,9 +172,9 @@ class _PesquisaHeroisState extends State<PesquisaHerois> {
                     itemCount: resultado.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.8,
-                    ),
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.8,
+                        ),
                     itemBuilder: (context, index) {
                       final heroi = resultado[index];
                       return HeroiCard(heroi: heroi);
@@ -196,10 +201,7 @@ class _PesquisaHeroisState extends State<PesquisaHerois> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
       items: [
-        const DropdownMenuItem<String>(
-          value: null,
-          child: Text('Todos'),
-        ),
+        const DropdownMenuItem<String>(value: null, child: Text('Todos')),
         ...opcoes.map(
           (o) => DropdownMenuItem<String>(value: o, child: Text(o)),
         ),
